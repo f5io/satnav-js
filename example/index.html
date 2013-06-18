@@ -1,0 +1,46 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Satnav.js</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+    </head>
+    <body>
+        <div class="container">
+            <div class="hero-unit">
+                <h1>Satnav.js</h1>
+                <span>
+                    <a href="#example/pageid">[Click me] Route: { filter : 'example', page : 'page' }</a><br/>
+                    <a href="#special/needs">[Click me] Route: { filter : 'special', page : 'needs'}</a>
+                </span>
+                <pre>
+Satnav({ html5 : false })                          // Set usage of html5 history api to false
+    .navigate({
+        path : '/?{filter}/?{page}',               
+        directions : function(params) {            // Function called when path is resolved
+            console.log('directions received');    
+            console.log(params);
+        }
+    })
+    .change(function(params, old) {                // Fired on hash change event
+        console.log('change event heard');
+        setTimeout(function() {
+            Satnav.resolve();                      // Use Satnav to resolve to the directions for the current route after deferring
+        }, 2000);
+        return this.defer;                         // Return this.defer/Satnav.defer to defer the resolution of the directions
+    })
+    .otherwise('/')
+    .go();                                         // Initiate Satnav, will handle deeplinking ie. determine initial route
+                </pre>
+            </div>
+        </div>
+
+        <script src="../lib/satnav.js"></script>
+        <script src="scripts/main.js"></script>
+</body>
+</html>
