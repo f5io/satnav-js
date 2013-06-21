@@ -1,6 +1,9 @@
 (function() {
 
-	Satnav({ html5 : false })
+	Satnav({ 
+		html5 : false,
+		force : true
+	})
 		.navigate({
 			path : '/?{filter}/?{page}',
 			directions : function(params) {
