@@ -28,7 +28,6 @@
 		var ev = _settings.html5 ? 'popstate' : 'hashchange';
 		if (_settings.force) _.force();
 		if (('on' + ev) in w) {
-			console.log(w.location.hash);
 			_.listen(w, ev, fn);
 		} else {
 			var oH = w.location.href;
