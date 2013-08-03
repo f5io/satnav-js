@@ -42,7 +42,7 @@ The `config` object can have the following properties:
 	
 	Default: `false`.
 - #####`poll` (`int`)
-	Interval in ms at which the hashchange polyfill should occur.
+	Interval in ms at which the `hashchange` polyfill should occur.
 	
 	Default: `25`.
 
