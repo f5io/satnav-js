@@ -17,10 +17,9 @@
 		_ = {},
 		_routes = [],
 		_listeners = {},
-		_sfpfstr = '{polyfill-safari-force}',
 		_settings = {
 			poll : 25,							// hashchange Polyfill poll interval
-			html5 : 'pushState' in w.history,	// use pushState if available
+			html5 : false,						// use pushState if available
 			force : false						// force hashchange events
 		};
 
@@ -91,7 +90,7 @@
 			var old = _params;
 			_params = route.params;
 			var change = _.dispatch('change', _params, old);
-			if (_settings.html5) {
+			if (_settings.html5 && 'pushState' in w.history) {
 				w.history.replaceState(_.extend(_params, { hash : _current }), '{Satnav}', '/' + _current);
 			}
 			var end = function() {
@@ -172,8 +171,7 @@
 	})();
 
 	_sN.resolve = function() {
-		setTimeout(_promise.resolve, 0);
-		return _sN;
+		setTimeout(_promise.resolve, 1);
 	};
 
 	_sN.navigate = function(route) {
@@ -193,30 +191,13 @@
 		return _sN;
 	};
 
-	_sN.go = function() {
-		_.change();
-		return _sN;
-	};
-
-	_sN.on = function() {
-		var args = arguments[0];
-		if (typeof args === 'object') {
-			for (var ev in args) {
-				_listeners[ev] = args[ev];
-			}
-		} else if (typeof args === 'string') {
-			if (arguments.length % 2 === 0) {
-				var pairs = arguments.length / 2;
-				for (var i = 0; i < pairs; i++) {
-					_listeners[arguments[2 * i]] = (typeof arguments[(2 * i) + 1] === 'function') ? arguments[(2 * i) + 1] : function(e) {};
-				}
-			}
-		}
-		return _sN;
-	};
-
 	_sN.change = function(fn) {
 		_listeners.change = fn;
+		return _sN;
+	};
+
+	_sN.go = function() {
+		_.change();
 		return _sN;
 	};
 
