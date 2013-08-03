@@ -1,5 +1,4 @@
 #Satnav
----
 
 ##A micro (~1.5kb gzipped) JS routing library.
 
