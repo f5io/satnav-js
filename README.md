@@ -65,7 +65,7 @@ Used to define a route that `Satnav` should respond to. The `route` object shoul
 
 - #####`path` (`String`)
 
-	A regex-like string containing the route. Parenthesised tokens in the string will become properties in the route's `params` object, and a matching value will be required for the route to be matched. Preceding a parenthesised token of the string will make the token optional. For eg. `'some/path/{required}/?{optional}'` will match `#some/path/value1` and `#some/path/value1/value2`, but not `#some/path`.
+	A regex-like string containing the route. Parenthesised tokens in the string will become properties in the route's `params` object, and a value will be required for the route to be matched. Preceding a parenthesised token with a `?` will make the token optional. For eg. `'some/path/{required}/?{optional}'` will match `#some/path/value1` and `#some/path/value1/value2`, but not `#some/path`.
 
 - #####`directions` (`Function`)
 
