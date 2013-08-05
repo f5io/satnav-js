@@ -25,7 +25,7 @@
 ###Installation
 ---
 
-`Satnav` can be installed using `bower`, using:
+`Satnav` can be installed with `bower`, by running:
 
 `bower install satnav`
 
