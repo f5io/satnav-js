@@ -1,0 +1,13 @@
+{
+  "name": "satnav",
+  "version": "1.0.0",
+  "main": [
+    "lib/satnav.js"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {}
+}

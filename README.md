@@ -16,16 +16,23 @@
 
 `Satnav` will work in the following browsers, plus most mobile browsers.
 
-- Microsoft Internet Explore 8+
+- Microsoft Internet Explorer 8+
 - Mozilla Firefox 3.6+
 - Google Chrome 5.0+
 - Apple Safari 5.0+
 - Opera 10.6+
 
+###Installation
+---
+
+`Satnav` can be installed using `bower`, using:
+
+`bower install satnav`
+
 ###Usage
 ---
 
-Satnav can be accessed using either `Satnav` or `sN`. From here on out, we will refer to it as `Satnav`.
+`Satnav` can be accessed using either `Satnav` or `sN`. From here on out, we will refer to it as `Satnav`.
 
 ####`Satnav`(`config /* Object */`)
 
