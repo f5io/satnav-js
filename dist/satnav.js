@@ -52,7 +52,7 @@
 
 		for (var i = 0; i < a.length; i++) {
 			var el = a[i];
-			if (el.getAttribute('href').indexOf('#') !== -1) {
+			if (el.hasAttribute('href') && el.getAttribute('href').indexOf('#') !== -1) {
 				_.listen(el, 'click', _click);
 			}
 		}
