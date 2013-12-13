@@ -1,0 +1,7 @@
+#!/bin/sh
+
+cp -rf lib/satnav.js dist/satnav.js
+uglifyjs dist/satnav.js -o dist/satnav.min.js
+gzip -c dist/satnav.min.js | wc -c
+
+echo '[Satnav] Build complete.'
