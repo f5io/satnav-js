@@ -53,13 +53,18 @@ The `config` object can have the following properties:
 	
 	Default: `25`.
 
+- ####`matchAll` (`boolean`)
+	In integrations where a change event should fire every time even if no routes are defined, set this value to `true`.
+
+	Default: `false`.
+
 #####Example
 
-    Satnav({
-	    html5: true, // use HTML5 pushState
-	    force: true, // force change event on same route
-	    poll: 100 // poll hash every 100ms if polyfilled
-    });
+	Satnav({
+		html5: true, // use HTML5 pushState
+		force: true, // force change event on same route
+		poll: 100 // poll hash every 100ms if polyfilled
+	});
 
 
 
@@ -78,15 +83,22 @@ Used to define a route that `Satnav` should respond to. The `route` object shoul
 
 	A function callback for when the route is achieved. A `params` object will be passed into the function containing the token/values from the route.
 
+- ####`title` (`String` *OR* `Function`)
+
+	A value which can either be returned from a function or string which will then be set as the documents title. The function receives the routes params object.
+
 #####Example
 
-    Satnav.navigate({
-    	path: 'some/path/{required}/?{optional}',
-    	directions: function(params) {
-    		console.log(params.required); // log value of 'required' token  
-    		console.log(params.hasOwnProperty('optional')); // check if optional token exists      
-    	}
-    });
+	Satnav.navigate({
+		path: 'some/path/{required}/?{optional}',
+		directions: function(params) {
+			console.log(params.required); // log value of 'required' token  
+			console.log(params.hasOwnProperty('optional')); // check if optional token exists      
+		},
+		title: function(params) {
+			return 'My Awesome route: ' + params.required;
+		}
+	});
 
 ####`otherwise`(`route /* Object OR String * /`)
 
@@ -95,26 +107,27 @@ route can either be a string or an object with a property of `path`.
 
 #####Example
 
-    Satnav.otherwise('/'); // will route all unmatched paths to #/
-    
+	Satnav.otherwise('/'); // will route all unmatched paths to #/
+	
 or
 
-    Satnav.otherwise({
-    	path: '/some/path/value1'
-    });
+	Satnav.otherwise({
+		path: '/some/path/value1'
+	});
 
 ####`change`(`fn /* Function */`)
 
 A function callback fired on `hashchange`. **This function will be fired before a routes `directions` are fired**.
 
-The function will receive a `params` object containing the token/values of the new route along with another object containing the previous `hashchange` token/values.
+The function will receive the current `hash`, a `params` object containing the token/values of the new route and another object containing the previous `hashchange` token/values.
 
 #####Example
 
-    Satnav.change(function(params,old) {
-    	console.log(params); // log new route values
-    	console.log(old); // log previous route values
-    });
+	Satnav.change(function(hash,params,old) {
+		console.log(hash); // log current hash
+		console.log(params); // log new route values
+		console.log(old); // log previous route values
+	});
 
 
 
@@ -124,31 +137,32 @@ Called at the end of a chain, `go`() tells `Satnav` to resolve the current route
 
 #####Example
 
-    Satnav({
-		    html5: false, // don't use pushState
-		    force: true, // force change event on same route
-		    poll: 100 // poll hash every 100ms if polyfilled
-    	})
-    	.navigate({
-    		path: 'some/path/{required}/?{optional}',
-    		directions: function(params) {
-    			console.log(params.required); // log value of 'required' token  
-    			console.log(params.hasOwnProperty('optional')); // check if optional token exists      
-    		}
-    	})
-    	.navigate({
-    		path: 'another/path/?{optional}',
-    		directions: function(params) {  
-    			console.log(params.hasOwnProperty('optional')); // check if optional token exists      
-    		}
-    	})
-    	.otherwise('/') // will route all unmatched paths to #/
-    	.change(function(params,old) {
-    		console.log(params); // log new route values
-    		console.log(old); // log previous route values
-    	})
-    	.go()
-    
+	Satnav({
+			html5: false, // don't use pushState
+			force: true, // force change event on same route
+			poll: 100 // poll hash every 100ms if polyfilled
+		})
+		.navigate({
+			path: 'some/path/{required}/?{optional}',
+			directions: function(params) {
+				console.log(params.required); // log value of 'required' token  
+				console.log(params.hasOwnProperty('optional')); // check if optional token exists      
+			}
+		})
+		.navigate({
+			path: 'another/path/?{optional}',
+			directions: function(params) {  
+				console.log(params.hasOwnProperty('optional')); // check if optional token exists      
+			}
+		})
+		.otherwise('/') // will route all unmatched paths to #/
+		.change(function(hash,params,old) {
+			console.log(hash); // log current hash
+			console.log(params); // log new route values
+			console.log(old); // log previous route values
+		})
+		.go()
+	
 
 ###Deferring Hash Changes
 ---
@@ -159,22 +173,22 @@ Called at the end of a chain, `go`() tells `Satnav` to resolve the current route
 
 By returning `Satnav.defer` or `this.defer` in the `change` callback, `Satnav` will wait until the promise is resolved until continuing to the `directions` of the new route.
 
-    Satnav
-    	.navigate({
-    		path: 'some/path/{required}/?{optional}',
-    		directions: function(params) {
-    			console.log('Fires 4 seconds after change callback');
-    		}
-    	})
-    	.change(function(params,old) {
-    		console.log('Change callback');
-    		setTimeout(function() {
-    			Satnav.resolve(); // we resolve Satnav 4 seconds after the change event is fired
-    		}, 4000)
-    		return this.defer; // return promise object
-    	})
-    	.go();
-    	
+	Satnav
+		.navigate({
+			path: 'some/path/{required}/?{optional}',
+			directions: function(params) {
+				console.log('Fires 4 seconds after change callback');
+			}
+		})
+		.change(function(hash,params,old) {
+			console.log('Change callback');
+			setTimeout(function() {
+				Satnav.resolve(); // we resolve Satnav 4 seconds after the change event is fired
+			}, 4000)
+			return this.defer; // return promise object
+		})
+		.go();
+		
 ###License
 ---
 
