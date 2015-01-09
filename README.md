@@ -53,7 +53,7 @@ The `config` object can have the following properties:
 	
 	Default: `25`.
 
-- ####`matchAll` (`boolean`)
+- #####`matchAll` (`boolean`)
 	In integrations where a change event should fire every time even if no routes are defined, set this value to `true`.
 
 	Default: `false`.
@@ -83,7 +83,7 @@ Used to define a route that `Satnav` should respond to. The `route` object shoul
 
 	A function callback for when the route is achieved. A `params` object will be passed into the function containing the token/values from the route.
 
-- ####`title` (`String` *OR* `Function`)
+- #####`title` (`String` *OR* `Function`)
 
 	A value which can either be returned from a function or string which will then be set as the documents title. The function receives the routes params object.
 
