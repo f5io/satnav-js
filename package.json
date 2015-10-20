@@ -1,0 +1,26 @@
+{
+  "name": "satnav",
+  "version": "1.0.0",
+  "description": "A micro front-end router",
+  "main": "dist/satnav.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/f5io/satnav-js.git"
+  },
+  "keywords": [
+    "routing",
+    "front-end"
+  ],
+  "author": "Joe Harlow",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/f5io/satnav-js/issues"
+  },
+  "homepage": "https://github.com/f5io/satnav-js#readme"
+}
