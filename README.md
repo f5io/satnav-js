@@ -1,13 +1,13 @@
-#Satnav
+# Satnav
 
-##A micro (~1.5kb gzipped) JS routing library.
+## A micro (~1.5kb gzipped) JS routing library.
 
 **Author:** *Joe Harlow* (<joe@f5.io>)
 
 ---
 `Satnav` provides functionality for Regex-like paths in JavaScript. It is library agnostic and has no dependencies.
 
-###Browser Support
+### Browser Support
 ---
 
 `Satnav` is built on the `hashchange` event but also includes support for HTML5 `pushState`.
@@ -22,19 +22,19 @@
 - Apple Safari 5.0+
 - Opera 10.6+
 
-###Installation
+### Installation
 ---
 
 `Satnav` can be installed with `bower`, by running:
 
 `bower install satnav`
 
-###Usage
+### Usage
 ---
 
 `Satnav` can be accessed using either `Satnav` or `sN`. From here on out, we will refer to it as `Satnav`.
 
-####`Satnav`(`config /* Object */`)
+#### `Satnav`(`config /* Object */`)
 
 `Satnav` itself is a function object. Calling `Satnav`(`config`) will set the global variables and return itself to enable chaining of functionality.
 
@@ -58,7 +58,7 @@ The `config` object can have the following properties:
 
 	Default: `false`.
 
-#####Example
+##### Example
 
 	Satnav({
 		html5: true, // use HTML5 pushState
@@ -68,10 +68,10 @@ The `config` object can have the following properties:
 
 
 
-###Methods (chainable)
+### Methods (chainable)
 ---
 
-####`navigate`(`route /* Object */`)
+#### `navigate`(`route /* Object */`)
 
 Used to define a route that `Satnav` should respond to. The `route` object should contain a `path` and `directions` property.
 
@@ -87,7 +87,7 @@ Used to define a route that `Satnav` should respond to. The `route` object shoul
 
 	A value which can either be returned from a function or string which will then be set as the documents title. The function receives the routes params object.
 
-#####Example
+##### Example
 
 	Satnav.navigate({
 		path: 'some/path/{required}/?{optional}',
@@ -100,12 +100,12 @@ Used to define a route that `Satnav` should respond to. The `route` object shoul
 		}
 	});
 
-####`otherwise`(`route /* Object OR String * /`)
+#### `otherwise`(`route /* Object OR String * /`)
 
 Used to define the default route that `Satnav` should target if no matching route is found.
 route can either be a string or an object with a property of `path`.
 
-#####Example
+##### Example
 
 	Satnav.otherwise('/'); // will route all unmatched paths to #/
 	
@@ -115,13 +115,13 @@ or
 		path: '/some/path/value1'
 	});
 
-####`change`(`fn /* Function */`)
+#### `change`(`fn /* Function */`)
 
 A function callback fired on `hashchange`. **This function will be fired before a routes `directions` are fired**.
 
 The function will receive the current `hash`, a `params` object containing the token/values of the new route and another object containing the previous `hashchange` token/values.
 
-#####Example
+##### Example
 
 	Satnav.change(function(hash,params,old) {
 		console.log(hash); // log current hash
@@ -131,11 +131,11 @@ The function will receive the current `hash`, a `params` object containing the t
 
 
 
-####`go`()
+#### `go`()
 
 Called at the end of a chain, `go`() tells `Satnav` to resolve the current route. This is what makes deeplinking possible.
 
-#####Example
+##### Example
 
 	Satnav({
 			html5: false, // don't use pushState
@@ -164,12 +164,12 @@ Called at the end of a chain, `go`() tells `Satnav` to resolve the current route
 		.go()
 	
 
-###Deferring Hash Changes
+### Deferring Hash Changes
 ---
 
 `Satnav` includes the ability to defer a routes `directions`. This is extremely useful in builds where an animation off is required to happen before something else animates on for the new route.
 
-####How-to
+#### How-to
 
 By returning `Satnav.defer` or `this.defer` in the `change` callback, `Satnav` will wait until the promise is resolved until continuing to the `directions` of the new route.
 
@@ -189,7 +189,7 @@ By returning `Satnav.defer` or `this.defer` in the `change` callback, `Satnav` w
 		})
 		.go();
 		
-###License
+### License
 ---
 
 Copyright (C) 2013 Joe Harlow (Fourth of 5 Limited)
